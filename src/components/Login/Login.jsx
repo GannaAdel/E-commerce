@@ -15,7 +15,7 @@ export default function Login() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   let { token, setToken } = useContext(authContext)
-  let { getUserCart} = useContext(cartContext)
+  let { getUserCart ,getLoggedUserCart} = useContext(cartContext)
   let { getUserWishlist} = useContext(WishlistContext)
   
 
@@ -30,7 +30,7 @@ export default function Login() {
        toast.success('Logged in successfully!');
         localStorage.setItem('token', data.token)
         setToken(data.token)
-        
+      await  getLoggedUserCart()
   await getUserCart()
   await getUserWishlist()
        

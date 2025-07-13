@@ -47,6 +47,18 @@ export default function CartContextProvider(props) {
         }
     }
 
+    async function getLoggedUserCart() {
+  try {
+    const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/cart', {
+      headers: { token: localStorage.getItem('token') }
+    });
+    setNumOfCartItems(data.numOfCartItems);
+  } catch (error) {
+    setNumOfCartItems(0); 
+  }
+}
+
+
     async function updateCart(prodId, prodCount) {
         try {
             let { data } = await axios.put(`https://ecommerce.routemisr.com/api/v1/cart/${prodId}`,
@@ -111,12 +123,13 @@ export default function CartContextProvider(props) {
     useEffect(() => {
         if (tokenCart) {
             getUserCart()
-
+getLoggedUserCart()
         }
+
     }, [tokenCart])
 
     return <>
-        <cartContext.Provider value={{ addToCart, updateCart, getUserCart ,deleteItemFromCart, clearCart, numOfCartItems, cartId, totalCartPrice, products, tokenCart }}>
+        <cartContext.Provider value={{ addToCart, updateCart, getUserCart, getLoggedUserCart ,deleteItemFromCart, clearCart, numOfCartItems, cartId, totalCartPrice, products, tokenCart }}>
             {props.children}
 
         </cartContext.Provider>
