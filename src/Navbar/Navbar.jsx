@@ -53,12 +53,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-4">
            
-            <Link to="/cart" className="relative">
-              <i className="fa fa-shopping-cart text-xl text-gray-700"></i>
-              <span className="absolute -top-2 -left-2 bg-green-100 text-green-800 text-xs font-bold px-1.5 py-0.5 rounded-full">
-                {numOfCartItems}
-              </span>
-            </Link>
+           
 
           
             {token === null ? (
@@ -66,9 +61,15 @@ export default function Navbar() {
                 <NavLink to="/login" className="text-gray-600 font-medium hover:text-emerald-600">Login</NavLink>
                 <NavLink to="/register" className="text-gray-600 font-medium hover:text-emerald-600">Register</NavLink>
               </>
-            ) : (
+            ) : <>
+               <Link to="/cart" className="relative">
+              <i className="fa fa-shopping-cart text-xl text-gray-700"></i>
+              <span className="absolute -top-2 -left-2 bg-green-100 text-green-800 text-xs font-bold px-1.5 py-0.5 rounded-full">
+                {numOfCartItems}
+              </span>
+            </Link>
               <button onClick={logout} className="text-gray-600 font-medium hover:text-red-500">Log out</button>
-            )}
+            </>}
           </div>
         </div>
       </div>
